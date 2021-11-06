@@ -1,3 +1,5 @@
+import 'package:flutter/animation.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -20,8 +22,8 @@ class _animation1State extends State<animation1> with SingleTickerProviderStateM
         vsync: this,
         duration: Duration(seconds: 3)
     );
-    animController.forward();
-    animation = Tween<double>(begin: 0, end: 2 * pi).animate(animController)..addListener(() {setState(() {
+    final curvedAnimation = CurvedAnimation(parent: animController, curve: Curves.bounceIn, reverseCurve: Curves.easeOut);
+    animation = Tween<double>(begin: 0, end: 2 * pi).animate(animController,)..addListener(() {setState(() {
     });})..addStatusListener((status) {
       if(status == AnimationStatus.completed){
         animController.reverse();
@@ -29,6 +31,8 @@ class _animation1State extends State<animation1> with SingleTickerProviderStateM
         animController.forward();
       }
     });
+    animController.forward();
+
   }
   @override
   Widget build(BuildContext context) {
